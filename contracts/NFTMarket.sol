@@ -14,7 +14,7 @@ contract NFTMarket is ReentrancyGuard {
   uint256 listingPrice = 0.025 ether;
 
   constructor() {
-    owner = address(msg.sender);
+    owner = payable(msg.sender);
   }
 
   struct MarketItem {
@@ -33,8 +33,8 @@ contract NFTMarket is ReentrancyGuard {
     uint indexed itemId,
     address indexed nftContract,
     uint256 indexed tokenId,
-    address payable seller,
-    address payable owner,
+    address seller,
+    address owner,
     uint256 price,
     bool sold
   );
@@ -43,7 +43,7 @@ contract NFTMarket is ReentrancyGuard {
     return listingPrice;
   }
 
-  function createMarketItem(address nftContract, uint256 token, uint256 price) public payable nonReentrant {
+  function createMarketItem(address nftContract, uint256 tokenId, uint256 price) public payable nonReentrant {
     require(price > 0, 'Price must be at least 1 wei');
     require(msg.value == listingPrice, 'Price must be equal to listing price');
 
@@ -72,8 +72,8 @@ contract NFTMarket is ReentrancyGuard {
     payable(owner).transfer(listingPrice);
   }
 
-  function fetchMarketItem() public view returns (MarketItem[] memory) {
-    uint itemCount = _itemsId.current();
+  function fetchMarketItems() public view returns (MarketItem[] memory) {
+    uint itemCount = _itemIds.current();
     uint unsoldItemCount = _itemIds.current() - _itemsSold.current();
     uint currentIndex = 0;
 
@@ -92,7 +92,7 @@ contract NFTMarket is ReentrancyGuard {
   }
 
   function fetchMyNFTs() public view returns (MarketItem[] memory) {
-    uint totalItemCount = _itemsId.current();
+    uint totalItemCount = _itemIds.current();
     uint itemCount = 0;
     uint currentIndex = 0;
 
@@ -118,7 +118,7 @@ contract NFTMarket is ReentrancyGuard {
   }
 
   function fetchItemsCreated() public view returns (MarketItem[] memory) {
-    uint totalItemCount = _itemsId.current();
+    uint totalItemCount = _itemIds.current();
     uint itemCount = 0;
     uint currentIndex = 0;
 
