@@ -18,7 +18,7 @@ export default class Home extends Component {
 
     for (let i = 0; i < 8; i += 1) {
       skeletons.push((
-        <div className="rounded-2xl overflow-hidden bg-neutral-700">
+        <div className="rounded-2xl overflow-hidden bg-neutral-700" key={i}>
           <div className="animate-pulse">
             <div className="wfull h-48 bg-neutral-600" />
             <div className="p-4">
@@ -39,7 +39,7 @@ export default class Home extends Component {
       ));
 
       cards.push((
-        <div className="rounded-2xl overflow-hidden bg-neutral-700">
+        <div className="rounded-2xl overflow-hidden bg-neutral-700" key={i}>
           <div className="h-48 flex justify-center items-center overflow-hidden">
             <Blockies seed={Math.random().toString()} scale={64} />
           </div>
