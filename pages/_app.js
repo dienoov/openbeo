@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }) {
                 <Link href="/">Explore</Link>
               </li>
               <li className="mx-4 my-2 text-neutral-400 hover:text-white transition">
-                <Link href="/">Create</Link>
+                <Link href="/create">Create</Link>
               </li>
               <li className="mx-4 my-2 text-neutral-400 hover:text-white transition">
                 <Link href="/">My Collections</Link>

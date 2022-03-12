@@ -79,8 +79,8 @@ export default class Home extends Component {
 
   async buyNFT(nft) {
     const web3Modal = new Web3Modal();
-    await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
 
     const signer = provider.getSigner();
     const contract = new ethers.Contract(nftMarketAddress, Market.abi, signer);
@@ -102,12 +102,12 @@ export default class Home extends Component {
             {isLoading || !nfts.length ? skeletons : nfts.map((nft) => (
               <div className="rounded-2xl overflow-hidden bg-neutral-700" key={nft.tokenId}>
                 <div className="h-48 flex justify-center items-center overflow-hidden">
-                  <Image src={nft.image} alt={nft.name} />
+                  <Image src={nft.image} alt={nft.name} width={500} height={500} className="object-cover" />
                 </div>
                 <div className="p-4">
                   <div className="flex justify-between items-center">
                     <h3 className="font-semibold">{nft.name}</h3>
-                    <Blockies seed={Math.random().toString()} className="rounded-full" />
+                    <Blockies seed={nft.seller} className="rounded-full" />
                   </div>
                   <div className="flex justify-between items-center mt-6">
                     <span>{`${nft.price} ETH`}</span>
