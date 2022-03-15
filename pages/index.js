@@ -61,7 +61,7 @@ export default class Home extends Component {
     const items = await Promise.all(data.map(async (item) => {
       const tokenUri = await nftContract.tokenURI(item.tokenId);
       const meta = await axios.get(tokenUri);
-      const price = ethers.utils.parseUnits(item.price.toString(), 'ether');
+      const price = ethers.utils.formatUnits(item.price.toString(), 'ether');
 
       return {
         price,
@@ -115,7 +115,7 @@ export default class Home extends Component {
                       type="button"
                       className="rounded-full border border-neutral-400 px-6 py-1 font-semibold
                         hover:bg-blue-600 hover:border-blue-600 transition"
-                      onClick={this.buyNFT(nft)}
+                      onClick={() => this.buyNFT(nft)}
                     >
                       Buy
                     </button>

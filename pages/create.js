@@ -77,7 +77,7 @@ export default class Create extends Component {
     const value = event.args[2];
     const tokenId = value.toNumber();
 
-    const ether = ethers.utils.parseUnits(price.toString(), 'ether');
+    const ether = ethers.utils.parseUnits(price, 'ether');
 
     contract = new ethers.Contract(nftMarketAddress, Market.abi, signer);
     const listingPrice = (await contract.getListingPrice()).toString();
@@ -106,7 +106,7 @@ export default class Create extends Component {
         </label>
         <label htmlFor="price" className="block mb-4">
           <span className="block mb-2">Price</span>
-          <input type="number" step="any" id="price" placeholder="Price..." className="w-full rounded p-2 text-black" onChange={this.onChangeInput.bind(this)} required />
+          <input type="text" id="price" placeholder="Price..." className="w-full rounded p-2 text-black" onChange={this.onChangeInput.bind(this)} required />
         </label>
         <label htmlFor="file" className="block mb-4">
           <span className="block mb-2">File</span>
